@@ -28,6 +28,8 @@ class User extends Authenticatable {
 
 	protected $table = "xk_xsmm";
 
+	protected $primaryKey = 'xh';
+
 	public function getRememberToken() {
 		return null; // not supported
 	}
