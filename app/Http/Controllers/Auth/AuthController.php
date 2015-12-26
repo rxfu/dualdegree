@@ -8,6 +8,7 @@ use Auth;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use Validator;
 
 class AuthController extends Controller {
@@ -29,7 +30,7 @@ class AuthController extends Controller {
 	 *
 	 * @var string
 	 */
-	protected $redirectTo = '/home';
+	protected $redirectTo = '/';
 
 	protected $username = 'username';
 
@@ -80,4 +81,5 @@ class AuthController extends Controller {
 			'password' => $request->get('password'),
 		];
 	}
+
 }
