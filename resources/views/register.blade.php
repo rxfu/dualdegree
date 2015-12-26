@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="text-right">
-	欢迎{{ Auth::user()->xh }}使用系统，<a href="{{ url('auth/logout') }}">登出系统</a>
+	欢迎{{ $profile->xh . $profile->xm }}同学使用系统，<a href="{{ url('auth/logout') }}">登出系统</a>
 </div>
 <form action="{{ url('user/store') }}" method="POST" class="form-horizontal" role="form">
 	{!! csrf_field() !!}
@@ -16,7 +16,9 @@
 		<label for="major" class="col-sm-2 control-label">报名双学位专业</label>
 		<div class="col-sm-10">
 			<select name="major" id="major" class="form-control">
-				<option value="major">major</option>
+				@foreach ($majors as $major)
+					<option value="{{ $major->c_zy }}">{{ $major->c_mc }}</option>
+				@endforeach
 			</select>
 		</div>
 	</div>

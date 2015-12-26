@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Profile;
+use Auth;
+use DB;
 
 class UserController extends Controller {
 
@@ -13,7 +16,17 @@ class UserController extends Controller {
 	}
 
 	public function getRegister() {
+		$profile = Profile::find(Auth::user()->xh);
+		$majors  = DB::connection('mysql')
+			->table('xt_zybh')
+			->join('jx_jxjh', 'jx_jxjh.c_zy', '=', 'xt_zybh.c_zy')
+			->where('jx_jxjh.c_nj', '=', $profile->nj)
+			->where('jx_jxjh.c_zsjj', '=', '0')
+			->select('xt_zybh.c_zy', 'xt_zybh.c_mc')
+			->orderBy('xt_zybh.c_zy')
+			->distinct()
+			->get();
 
-		return view('register', ['title' => '广西师范大学双学位报名系统']);
+		return view('register', ['title' => '广西师范大学双学位报名系统', 'profile' => $profile, 'majors' => $majors]);
 	}
 }
