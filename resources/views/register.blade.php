@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="text-right">
-	<a href="{{ url('auth/logout') }}">登出系统</a>
+	欢迎{{ Auth::user()->xh }}使用系统，<a href="{{ url('auth/logout') }}">登出系统</a>
 </div>
 <form action="{{ url('user/store') }}" method="POST" class="form-horizontal" role="form">
 	{!! csrf_field() !!}
