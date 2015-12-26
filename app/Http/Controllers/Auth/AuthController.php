@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\User;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
+use Illuminate\Http\Request;
 use Validator;
 
 class AuthController extends Controller {
@@ -29,6 +30,8 @@ class AuthController extends Controller {
 	 */
 	protected $redirectTo = '/home';
 
+	protected $username = 'username';
+
 	/**
 	 * Create a new authentication controller instance.
 	 *
@@ -47,7 +50,6 @@ class AuthController extends Controller {
 	protected function validator(array $data) {
 		return Validator::make($data, [
 			'username' => 'required|max:12',
-			'email'    => 'required|email|max:255|unique:users',
 			'password' => 'required|confirmed|min:6',
 		]);
 	}
@@ -60,9 +62,21 @@ class AuthController extends Controller {
 	 */
 	protected function create(array $data) {
 		return User::create([
-			'name'     => $data['name'],
-			'email'    => $data['email'],
+			'username' => $data['username'],
 			'password' => bcrypt($data['password']),
 		]);
+	}
+
+	/**
+	 * Get the needed authorization credentials from the request.
+	 *
+	 * @param  \Illuminate\Http\Request  $request
+	 * @return array
+	 */
+	protected function getCredentials(Request $request) {
+		return [
+			'xh' => $request->get('username'),
+			'mm' => $request->get('password'),
+		];
 	}
 }
