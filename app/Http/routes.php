@@ -12,7 +12,7 @@
  */
 
 Route::get('/', function () {
-	return view('welcome');
+	return redirect('user/register');
 });
 
 /*
@@ -30,5 +30,6 @@ Route::group(['middleware' => ['web']], function () {
 	Route::controllers([
 		'auth'     => 'Auth\AuthController',
 		'password' => 'Auth\PasswordController',
+		'user'     => 'UserController',
 	]);
 });

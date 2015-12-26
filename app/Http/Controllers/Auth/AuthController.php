@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\User;
+use Auth;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Http\Request;
@@ -75,8 +76,8 @@ class AuthController extends Controller {
 	 */
 	protected function getCredentials(Request $request) {
 		return [
-			'xh' => $request->get('username'),
-			'mm' => $request->get('password'),
+			'xh'       => $request->get('username'),
+			'password' => $request->get('password'),
 		];
 	}
 }

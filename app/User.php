@@ -12,7 +12,7 @@ class User extends Authenticatable {
 	 * @var array
 	 */
 	protected $fillable = [
-		'zh', 'mm',
+		'xh', 'mm',
 	];
 
 	/**
@@ -30,6 +30,10 @@ class User extends Authenticatable {
 
 	protected $primaryKey = 'xh';
 
+	public $incrementing = false;
+
+	public $timestamps = false;
+
 	public function getRememberToken() {
 		return null; // not supported
 	}
@@ -40,6 +44,10 @@ class User extends Authenticatable {
 
 	public function getRememberTokenName() {
 		return null; // not supported
+	}
+
+	public function getAuthPassword() {
+		return $this->mm;
 	}
 
 	/**
