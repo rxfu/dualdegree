@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Profile;
+use App\Student;
 use Auth;
 use DB;
 
@@ -16,7 +17,6 @@ class UserController extends Controller {
 	}
 
 	public function getRegister() {
-		DB::statement("SET NAMES 'utf8'");
 		$profile = Profile::find(Auth::user()->xh);
 		$majors  = DB::connection('mysql')
 			->table('xt_zybh')
@@ -27,7 +27,12 @@ class UserController extends Controller {
 			->orderBy('xt_zybh.c_zy')
 			->distinct()
 			->get();
+		$student = Student::find(Auth::user()->xh);
 
-		return view('register', ['title' => '广西师范大学双学位报名系统', 'profile' => $profile, 'majors' => $majors]);
+		return view('register', ['title' => '广西师范大学双学位报名系统', 'profile' => $profile, 'majors' => $majors, 'student' => $student]);
+	}
+
+	public function postStore(Request $request) {
+		$inputs = $request->all();
 	}
 }
