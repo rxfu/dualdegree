@@ -17,7 +17,7 @@
 		<div class="col-sm-10">
 			<select name="major" id="major" class="form-control">
 				@foreach ($majors as $major)
-					<option value="{{ $major->c_zy }}">{{ $major->c_mc }}</option>
+					<option value="{{ $major->c_zy }}">{{ iconv('GBK','UTF-8',$major->c_mc) }}</option>
 				@endforeach
 			</select>
 		</div>

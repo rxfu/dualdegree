@@ -16,6 +16,7 @@ class UserController extends Controller {
 	}
 
 	public function getRegister() {
+		DB::statement("SET NAMES 'utf8'");
 		$profile = Profile::find(Auth::user()->xh);
 		$majors  = DB::connection('mysql')
 			->table('xt_zybh')

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="zh">
 	<head>
-		<meta charset="utf-8">
+		<meta charset="gbk">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<title>广西师范大学双学位报名系统</title>
