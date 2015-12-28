@@ -7,6 +7,8 @@ use App\Profile;
 use App\Student;
 use Auth;
 use DB;
+use Illuminate\Http\Request;
+use Validator;
 
 class UserController extends Controller {
 
@@ -39,23 +41,50 @@ class UserController extends Controller {
 		$validator = Validator::make($inputs, $rules);
 
 		if ($validator->passes()) {
-			$profile = Profile::find(Auth::user()->xh);
+			$profile = DB::connection('pgsql')
+				->table('xs_zxs')
+				->join('zd_xb', 'zd_xb.dm', '=', 'xs_zxs.xbdm')
+				->join('zd_mz', 'zd_mz.dm', '=', 'xs_zxs.mzdm')
+				->select('xh', 'xm', 'zd_xb.mc as xb', 'csny', 'zd_mz.mc as mz', 'sfzh', 'ksh', 'jg', 'zy')
+				->where('xh', '=', Auth::user()->xh)
+				->first();
 			$special = DB::connection('pgsql')
 				->table('jx_zy')
-				->where('zy', '=', $profile->zyh)
+				->where('zy', '=', $profile->zy)
 				->first();
 
 			$student         = new Student;
 			$student->c_xh   = $profile->xh;
-			$student->c_xm   = $profile->xm;
-			$student->c_xb   = $profile->xb;
-			$student->c_csrq = $profile->csrq;
-			$student->c_mz   = $profile->mz;
+			$student->c_xm   = iconv('UTF-8', 'GBK', $profile->xm);
+			$student->c_xb   = iconv('UTF-8', 'GBK', $profile->xb);
+			$student->c_csrq = $profile->csny;
+			$student->c_mz   = iconv('UTF-8', 'GBK', $profile->mz);
 			$student->c_sfzh = $profile->sfzh;
 			$student->c_ksh  = $profile->ksh;
-			$student->c_jg   = $profile->jg;
-			$student->c_yx   = $profile->yx;
-			$student->c_bz   = $special->mc;
+			$student->c_jg   = iconv('UTF-8', 'GBK', $profile->jg);
+			$student->c_bz   = iconv('UTF-8', 'GBK', $special->mc);
+			$student->c_lxdh = $inputs['phone'];
+			$student->c_zyh  = $inputs['major'];
+
+			if ($student->save()) {
+				return redirect('/')->with('status', '双学位报名成功');
+			} else {
+				return back()->withErrors('双学位报名失败');
+			}
+		} else {
+			return back()->withErrors($validator);
+		}
+	}
+
+	public function postUpdate(Request $request, $id) {
+		$inputs = $request->all();
+		$rules  = [
+			'phone' => 'required',
+		];
+		$validator = Validator::make($inputs, $rules);
+
+		if ($validator->passes()) {
+			$student         = Student::find($id);
 			$student->c_lxdh = $inputs['phone'];
 			$student->c_zyh  = $inputs['major'];
 
