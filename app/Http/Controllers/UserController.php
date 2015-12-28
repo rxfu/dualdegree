@@ -15,7 +15,7 @@ class UserController extends Controller {
 	protected $table = 'xs_xsb';
 
 	public function __construct() {
-		$this->middleware('auth');
+		$this->middleware('auth', ['except' => ['getLogin', 'postLogin']]);
 	}
 
 	public function getRegister() {
@@ -67,7 +67,7 @@ class UserController extends Controller {
 			$student->c_zyh  = $inputs['major'];
 
 			if ($student->save()) {
-				return redirect('/')->with('status', '双学位报名成功');
+				return back()->with('status', '双学位报名成功');
 			} else {
 				return back()->withErrors('双学位报名失败');
 			}
@@ -96,5 +96,48 @@ class UserController extends Controller {
 		} else {
 			return back()->withErrors($validator);
 		}
+	}
+
+	/**
+	 * Show the application login form.
+	 *
+	 * @return \Illuminate\Http\Response
+	 */
+	public function getLogin() {
+		return view('auth.login');
+	}
+
+	/**
+	 * Handle a login request to the application.
+	 *
+	 * @param  \Illuminate\Http\Request  $request
+	 * @return \Illuminate\Http\Response
+	 */
+	public function postLogin(Request $request) {
+		$this->validate($request, ['username' => 'required', 'password' => 'required']);
+
+		$credentials = [
+			'xh' => $request->get('username'),
+			'mm' => $request->get('password'),
+		];
+
+		if (Auth::attempt($credentials, $request->has('remember'))) {
+			return redirect()->intended('/');
+		}
+
+		return redirect('/')
+			->withInput($request->only('username'))
+			->withErrors(['username' => '用户名或密码不正确，请重新输入！']);
+	}
+
+	/**
+	 * Log the user out of the application.
+	 *
+	 * @return \Illuminate\Http\Response
+	 */
+	public function getLogout() {
+		Auth::logout();
+
+		return redirect('/');
 	}
 }

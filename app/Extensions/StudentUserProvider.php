@@ -12,6 +12,6 @@ class StudentUserProvider extends EloquentUserProvider {
 	}
 
 	public function validateCredentials(UserContract $user, array $credentials) {
-		return $user->getAuthPassword() === $credentials['password'];
+		return ($user->getAuthPassword() === $credentials['mm']);
 	}
 }

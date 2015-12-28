@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="text-right">
-	欢迎{{ $profile->xh . $profile->xm }}同学使用系统，<a href="{{ url('auth/logout') }}">登出系统</a>
+	欢迎{{ $profile->xh . $profile->xm }}同学使用系统，<a href="{{ url('user/logout') }}">登出系统</a>
 </div>
 <div class="panel panel-primary">
 	<div class="panel-heading">

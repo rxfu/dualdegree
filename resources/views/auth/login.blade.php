@@ -4,7 +4,7 @@
 <div class="panel panel-default">
 	<div class="panel-heading">登录系统</div>
 	<div class="panel-body">
-		<form action="{{ url('auth/login') }}" method="POST" class="form-horizontal" role="form">
+		<form action="{{ url('user/login') }}" method="POST" class="form-horizontal" role="form">
 			{!! csrf_field() !!}
 			<div class="form-group">
 				<label for="username" class="col-sm-2 control-label">用户名</label>

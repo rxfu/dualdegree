@@ -28,8 +28,6 @@ Route::get('/', function () {
 
 Route::group(['middleware' => ['web']], function () {
 	Route::controllers([
-		'auth'     => 'Auth\AuthController',
-		'password' => 'Auth\PasswordController',
-		'user'     => 'UserController',
+		'user' => 'UserController',
 	]);
 });

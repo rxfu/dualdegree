@@ -34,6 +34,14 @@ class User extends Authenticatable {
 
 	public $timestamps = false;
 
+	public function getAuthIdentifierName() {
+		return $this->xh;
+	}
+
+	public function getAuthPassword() {
+		return $this->mm;
+	}
+
 	public function getRememberToken() {
 		return null; // not supported
 	}
@@ -46,16 +54,11 @@ class User extends Authenticatable {
 		return null; // not supported
 	}
 
-	public function getAuthPassword() {
-		return $this->mm;
-	}
-
 	/**
-	 * Override the method to ignore the remember token
+	 * Overrides the method to ignore the remember token.
 	 */
 	public function setAttribute($key, $value) {
 		$isRememberTokenAttribute = $key == $this->getRememberTokenName();
-
 		if (!$isRememberTokenAttribute) {
 			parent::setAttribute($key, $value);
 		}
