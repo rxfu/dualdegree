@@ -7,7 +7,14 @@
 <div class="panel panel-primary">
 	<div class="panel-heading">
 		<div class="panel-title text-center">
-			<h2>{{ $profile->xm }}同学双学位报名</h2>
+			<h2>
+			@if (empty($student))
+				欢迎{{ $profile->xm }}同学报名双学士学位
+			@else
+				欢迎{{ $student->c_xh . iconv('GBK', 'UTF-8', $student->c_xm) }}同学报名{{ iconv('GBK', 'UTF-8', $student->yxmc) }}{{ iconv('GBK', 'UTF-8', $student->zymc) }}专业<br>
+				联系电话：{{ $student->c_lxdh }}&nbsp;&nbsp;身份证号码：{{ $student->c_sfzh }}
+			@endif
+			</h2>
 		</div>
 	</div>
 	<div class="panel-body">
