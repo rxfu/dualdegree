@@ -38,7 +38,7 @@ class UserController extends Controller {
 
 		$majors = DB::table('xt_zybh')
 			->join('jx_jxjh', 'jx_jxjh.c_zy', '=', 'xt_zybh.c_zy')
-			->where('jx_jxjh.c_nj', '=', $profile->nj)
+			->where('jx_jxjh.c_nj', '=', $profile->nj + 2)
 			->where('jx_jxjh.c_zsjj', '=', '0')
 			->select('xt_zybh.c_zy', 'xt_zybh.c_mc')
 			->orderBy('xt_zybh.c_zy')
