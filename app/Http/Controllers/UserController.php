@@ -19,21 +19,21 @@ class UserController extends Controller {
 	}
 
 	public function getBan() {
-		return view('ban', ['title' => '广西师范大学双学位报名系统']);
+		return view('ban', ['title' => '广西师范大学辅修专业学士学位报名系统']);
 	}
 
 	public function getRegister() {
 		$switch = DB::table('xt')->where('c_id', '=', 'XS_DEXWBM')->first();
 		if ($switch->c_value == 0) {
-			return redirect('user/ban')->with('message', '现在还没有开放双学士学位教育网上报名，以便确认您的修读资格，谢谢。');
+			return redirect('user/ban')->with('message', '现在还没有开放辅修专业学士学位教育网上报名，以便确认您的修读资格，谢谢。');
 		}
 
 		$profile = Profile::find(Auth::user()->xh);
 		if (is_null($profile)) {
-			return redirect('user/ban')->with('message', '双学士学位教育只限在校学生报名，其它学籍状态的同学如果需要报名，请直接联系相关学院，其联系方式见《广西师范大学2015年“双学士学位”教育招生简章》，以便确认您的修读资格，谢谢。');
+			return redirect('user/ban')->with('message', '辅修专业学士学位教育只限在校学生报名，其它学籍状态的同学如果需要报名，请直接联系相关学院，其联系方式见《广西师范大学2015年“辅修专业学士学位”教育招生简章》，以便确认您的修读资格，谢谢。');
 		}
 		if ($profile->nj != '2014') {
-			return redirect('user/ban')->with('message', '2015年双学士学位教育只限2014级学生报名，其它年级的同学如果需要报名，请直接联系相关学院，其联系方式见《广西师范大学2015年“双学士学位”教育招生简章》，以便确认您的修读资格，谢谢。');
+			return redirect('user/ban')->with('message', '2015年辅修专业学士学位教育只限2014级学生报名，其它年级的同学如果需要报名，请直接联系相关学院，其联系方式见《广西师范大学2015年“辅修专业学士学位”教育招生简章》，以便确认您的修读资格，谢谢。');
 		}
 
 		$majors = DB::table('xt_zybh')
@@ -52,7 +52,7 @@ class UserController extends Controller {
 			->where('c_xh', '=', Auth::user()->xh)
 			->first();
 
-		return view('register', ['title' => '广西师范大学双学位报名系统', 'profile' => $profile, 'majors' => $majors, 'student' => $student]);
+		return view('register', ['title' => '广西师范大学辅修专业学士学位报名系统', 'profile' => $profile, 'majors' => $majors, 'student' => $student]);
 	}
 
 	public function postStore(Request $request) {
@@ -89,9 +89,9 @@ class UserController extends Controller {
 			$student->c_zyh  = $inputs['major'];
 
 			if ($student->save()) {
-				return back()->with('status', '双学位报名成功');
+				return back()->with('status', '辅修专业学士学位报名成功');
 			} else {
-				return back()->withErrors('双学位报名失败');
+				return back()->withErrors('辅修专业学士学位报名失败');
 			}
 		} else {
 			return back()->withErrors($validator);
@@ -111,9 +111,9 @@ class UserController extends Controller {
 			$student->c_zyh  = $inputs['major'];
 
 			if ($student->save()) {
-				return redirect('/')->with('status', '双学位报名成功');
+				return redirect('/')->with('status', '辅修专业学士学位报名成功');
 			} else {
-				return back()->withErrors('双学位报名失败');
+				return back()->withErrors('辅修专业学士学位报名失败');
 			}
 		} else {
 			return back()->withErrors($validator);

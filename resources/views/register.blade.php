@@ -9,7 +9,7 @@
 		<div class="panel-title text-center">
 			<h2>
 			@if (empty($student))
-				欢迎{{ $profile->xm }}同学报名双学士学位
+				欢迎{{ $profile->xm }}同学报名辅修专业学士学位
 			@else
 				欢迎{{ $student->c_xh . iconv('GBK', 'UTF-8', $student->c_xm) }}同学报名{{ iconv('GBK', 'UTF-8', $student->yxmc) }}{{ iconv('GBK', 'UTF-8', $student->zymc) }}专业<br>
 				联系电话：{{ $student->c_lxdh }}&nbsp;&nbsp;身份证号码：{{ $student->c_sfzh }}
@@ -18,8 +18,8 @@
 		</div>
 	</div>
 	<div class="panel-body">
-		<p>1.<a href="http://www.dean.gxnu.edu.cn/wp-content/uploads/2014/12/%E9%99%84%E4%BB%B62%E5%B9%BF%E8%A5%BF%E5%B8%88%E8%8C%83%E5%A4%A7%E5%AD%A6%E5%85%A8%E6%97%A5%E5%88%B6%E6%99%AE%E9%80%9A%E6%9C%AC%E7%A7%91%E2%80%9C%E5%8F%8C%E5%AD%A6%E5%A3%AB%E5%AD%A6%E4%BD%8D%E2%80%9D%E6%95%99%E8%82%B2%E7%94%B3%E8%AF%B7%E8%A1%A8.doc" target="_blank">&nbsp;广西师范大学全日制普通本科“双学士学位”教育申请表</a></p>
-		<p>2.<a href="http://www.dean.gxnu.edu.cn/wp-content/uploads/2014/12/%E9%99%84%E4%BB%B61%E5%B9%BF%E8%A5%BF%E5%B8%88%E8%8C%83%E5%A4%A7%E5%AD%A62015%E5%B9%B4%E2%80%9C%E5%8F%8C%E5%AD%A6%E5%A3%AB%E5%AD%A6%E4%BD%8D%E2%80%9D%E6%95%99%E8%82%B2%E6%8B%9B%E7%94%9F%E7%AE%80%E7%AB%A01.doc" target="_blank">《广西师范大学2015年“双学士学位”教育招生简章》</a></p>
+		<p>1.<a href="http://www.dean.gxnu.edu.cn/wp-content/uploads/2014/12/%E9%99%84%E4%BB%B62%E5%B9%BF%E8%A5%BF%E5%B8%88%E8%8C%83%E5%A4%A7%E5%AD%A6%E5%85%A8%E6%97%A5%E5%88%B6%E6%99%AE%E9%80%9A%E6%9C%AC%E7%A7%91%E2%80%9C%E5%8F%8C%E5%AD%A6%E5%A3%AB%E5%AD%A6%E4%BD%8D%E2%80%9D%E6%95%99%E8%82%B2%E7%94%B3%E8%AF%B7%E8%A1%A8.doc" target="_blank">&nbsp;广西师范大学全日制普通本科“辅修专业学士学位”教育申请表</a></p>
+		<p>2.<a href="http://www.dean.gxnu.edu.cn/wp-content/uploads/2014/12/%E9%99%84%E4%BB%B61%E5%B9%BF%E8%A5%BF%E5%B8%88%E8%8C%83%E5%A4%A7%E5%AD%A62015%E5%B9%B4%E2%80%9C%E5%8F%8C%E5%AD%A6%E5%A3%AB%E5%AD%A6%E4%BD%8D%E2%80%9D%E6%95%99%E8%82%B2%E6%8B%9B%E7%94%9F%E7%AE%80%E7%AB%A01.doc" target="_blank">《广西师范大学2015年“辅修专业学士学位”教育招生简章》</a></p>
 		<form action="{{ empty($student) ? url('user/store') : url('user/update', $profile->xh) }}" method="POST" class="form-horizontal" role="form">
 			{!! csrf_field() !!}
 			<div class="form-group">
@@ -33,7 +33,7 @@
 				</div>
 			</div>
 			<div class="form-group">
-				<label for="major" class="col-sm-2 control-label">报名双学位专业</label>
+				<label for="major" class="col-sm-2 control-label">报名辅修专业学士学位专业</label>
 				<div class="col-sm-10">
 					<select name="major" id="major" class="form-control">
 						@foreach ($majors as $major)
